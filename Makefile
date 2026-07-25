@@ -1,8 +1,7 @@
 DEFULT_C=gcc
-STD=--std=c11
 
 build:
-	$(DEFULT_C) main.c -o sts $(STD)
+	$(DEFULT_C) main.c -o sts 
 install:build
 	
 	@echo "This will copy the sts excutabel to the Bin folder"
