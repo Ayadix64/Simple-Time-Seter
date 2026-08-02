@@ -88,6 +88,7 @@ void server(u16 port){
 	addrsv.sin_port=htons(port);
 	addrsv.sin_addr.s_addr = INADDR_ANY;
 	
+	printf("STARTING SERVER ...\n");
 	if ((lisntsocket = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
 		printf("\n Socket creation error \n");
 		exit(EXIT_FAILURE);
@@ -97,15 +98,14 @@ void server(u16 port){
 		lgErr("Binding error");
 		exit(EXIT_FAILURE);
 	}
+	printf("SERVER IS RUNING.\n");
 	Packat pack;
+	struct sockaddr cleintaddrr;
+	socklen_t cleintaddrrlen=sizeof(cleintaddrr);
 	while(1){
 		listen(lisntsocket, 1);
-		int cleintsock = accept(lisntsocket, NULL, NULL);
 		
-		struct sockaddr cleintaddrr;
-		socklen_t cleintaddrrlen=sizeof(cleintaddrr);
-		getsockname(cleintsock, &cleintaddrr, &cleintaddrrlen);
-		
+		int cleintsock = accept(lisntsocket, &cleintaddrr,&cleintaddrrlen);
 
 		printf("New conection: %d.%d.%d.%d\n",(u8)cleintaddrr.sa_data[2],(u8)cleintaddrr.sa_data[3],(u8)cleintaddrr.sa_data[4],(u8)cleintaddrr.sa_data[5]);
 		for(int i = 0 ; i < 2 ; i++){	
